@@ -6,6 +6,7 @@
     background-color: #f8f8f8;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+    width: 75%;
 }
 
 .card:hover {
@@ -64,4 +65,28 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+}
+
+.wrong-answer-message{
+    margin-top: 20px;
+    justify-content: center;
+    padding: 10px;
+    background-color: #d52b2b;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.5s ease-in-out;
+}
+#NewGame {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #bc3535;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
 }
