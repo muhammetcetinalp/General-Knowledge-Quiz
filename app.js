@@ -1,17 +1,33 @@
 const form = document.querySelector("#form");
-const number = form[0];
-const difficulty = form[1];
-const type = form[2];
+const kind = form[0];
+const number = form[1];
+const difficulty = form[2];
+const type = form[3];
 const indiv = document.querySelector(".questions_div_class");
 
 let gameStarted = false;
 
 document.querySelector("#button").addEventListener("click", () => {
     if (!gameStarted) {
-        var numericValue = parseFloat(number.value);
+        startGame();
+    }
+});
+document.getElementById("myInput").addEventListener("keypress", (e)=> {
+    if(e.key ==="Enter"){
+        e.preventDefault();
+        if (!gameStarted) {
+            startGame();
+        }
+    }
+})
+function startGame(){
+    var numericValue = parseFloat(number.value);
         if (!isNaN(numericValue)) {
             gameStarted = true;
-            const url = `https://opentdb.com/api.php?amount=${number.value}&category=9&difficulty=${difficulty.value}&type=${type.value}`;
+            if(number.value >50){
+                number.value =50;
+            }
+            const url = `https://opentdb.com/api.php?amount=${number.value}&category=${kind.value}&difficulty=${difficulty.value}&type=${type.value}`;
             number.value = "";
             form.style.display = "none";
             document.querySelector("#button").style.display = "none";
@@ -20,12 +36,13 @@ document.querySelector("#button").addEventListener("click", () => {
                 .then((resp) => {
                     writeQuestions(resp);
                 });
+            console.log(url);
+
         }
         else {
             alert("Give a number Please!");
         }
-    }
-});
+}
 function writeQuestions(resp) {
     const arr = Object.values(resp);
     myArray = arr[1];
@@ -38,6 +55,7 @@ function writeQuestions(resp) {
     document.body.append(nextButton);
     nextButton.addEventListener("click", () => {
         if (currentIndex <= myArray.length) {
+
             let answers = document.querySelectorAll(".ans");
             const arr = Object.values(answers);
             arr.forEach((index) => {
@@ -53,11 +71,13 @@ function writeQuestions(resp) {
                         }
                     }
                     else if (index.value === "false") {
+
                         const falseQuestion = document.querySelector(".card");
-                        
+
                         const messageDiv = document.createElement("div");
                         messageDiv.textContent = "Wrong Answer";
                         messageDiv.className = "wrong-answer-message";
+
                         falseQuestion.append(messageDiv)
 
                         setTimeout(() => {
