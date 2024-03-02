@@ -4,7 +4,7 @@ This is a simple quiz game that fetches general knowledge questions from the Ope
 
 ## Preview
 
-#You can see a live preview of the website [here](general-knowledge-quiz.000.pe).
+You can see a live preview of the website [here](https://general-knowledge-quiz.000.pe).
 
 ## How to Play
 
