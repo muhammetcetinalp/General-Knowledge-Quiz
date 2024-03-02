@@ -2,6 +2,10 @@
 
 This is a simple quiz game that fetches general knowledge questions from the Open Trivia Database.
 
+## Preview
+
+#You can see a live preview of the website [here](general-knowledge-quiz.000.pe).
+
 ## How to Play
 
 1. Enter the number of questions you want.
@@ -13,7 +17,7 @@ This is a simple quiz game that fetches general knowledge questions from the Ope
 
 - Answer each question by selecting the correct option.
 - Click the "Next Question" button to move to the next question.
-- After answering all questions, the game will display the total correct, incorrect, and unanswered questions.
+- If you answer the question incorrectly, the game will warn you.
 
 ## Styling
 
