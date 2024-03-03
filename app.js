@@ -12,36 +12,43 @@ document.querySelector("#button").addEventListener("click", () => {
         startGame();
     }
 });
-document.getElementById("myInput").addEventListener("keypress", (e)=> {
-    if(e.key ==="Enter"){
+document.getElementById("myInput").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
         e.preventDefault();
         if (!gameStarted) {
             startGame();
         }
     }
 })
-function startGame(){
+function startGame() {
     var numericValue = parseFloat(number.value);
-        if (!isNaN(numericValue)) {
-            gameStarted = true;
-            if(number.value >50){
-                number.value =50;
-            }
-            const url = `https://opentdb.com/api.php?amount=${number.value}&category=${kind.value}&difficulty=${difficulty.value}&type=${type.value}`;
-            number.value = "";
-            form.style.display = "none";
-            document.querySelector("#button").style.display = "none";
-            fetch(url)
-                .then((response) => response.json())
-                .then((resp) => {
-                    writeQuestions(resp);
-                });
-            console.log(url);
+    if (!isNaN(numericValue)) {
+        gameStarted = true;
+        if (number.value > 50) {
+            number.value = 50;
+        }
+        const url = `https://opentdb.com/api.php?amount=${number.value}&category=${kind.value}&difficulty=${difficulty.value}&type=${type.value}`;
+        number.value = "";
+        form.style.display = "none";
+        document.querySelector("#button").style.display = "none";
+        SendARequest(url)
+    }
+    else {
+        alert("Give a number Please!");
+    }
+}
 
-        }
-        else {
-            alert("Give a number Please!");
-        }
+function SendARequest(url) {
+    fetch(url)
+        .then((response) => response.json())
+        .then((resp) => {
+            if (resp.results && resp.results.length > 0) {
+                writeQuestions(resp);
+            } else {
+                displayErrorMessage();
+            }
+        })
+
 }
 function writeQuestions(resp) {
     const arr = Object.values(resp);
@@ -51,7 +58,7 @@ function writeQuestions(resp) {
 
     const nextButton = document.createElement("button");
     nextButton.textContent = "Next Question";
-    nextButton.id = "Next1";
+    nextButton.className = "Next1";
     document.body.append(nextButton);
     nextButton.addEventListener("click", () => {
         if (currentIndex <= myArray.length) {
@@ -164,4 +171,23 @@ function shuffle(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+}
+
+function displayErrorMessage() {
+    const errorMessageDiv = document.createElement("div");
+    errorMessageDiv.textContent = "Cannot get data";
+    errorMessageDiv.classList.add("wrong-answer-message");
+
+    document.body.appendChild(errorMessageDiv);
+
+    setTimeout(() => {
+        errorMessageDiv.remove();
+        const refresh = document.createElement("button");
+        refresh.textContent = "Try Again";
+        refresh.className= "Next1";
+        document.body.append(refresh);
+        refresh.addEventListener("click", () => {
+            location.reload();
+        });
+    }, 2000);
 }
